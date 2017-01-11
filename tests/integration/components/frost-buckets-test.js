@@ -9,7 +9,7 @@ import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-
 
 const test = integration('frost-buckets')
 
-describe('Integration: FrostBucketsComponent', function () {
+describe(test.label, function () {
   test.setup()
   it('renders', function () {
     this.render(hbs`
@@ -17,4 +17,5 @@ describe('Integration: FrostBucketsComponent', function () {
     `)
     expect(this.$('')).to.have.length(1)
   })
+
 })

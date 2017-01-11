@@ -1,5 +1,5 @@
 import Immutable from 'seamless-immutable'
-export const REDUX_INIT = '@@redux/init'
+export const REDUX_INIT = '@@redux/INIT'
 
 export function simpleAction (action) {
   const actionObj = {
@@ -23,7 +23,7 @@ export const Actions = Immutable.from({
   SELECT_HOVER: 'frost-buckets/SELECT_HOVER'
 })
 
-export function clickItem (index, isSelectedItem) {
+export function clickItem (isSelectedItem, index) {
   return {
     type: Actions.CLICK_ITEM,
     isSelectedItem,

@@ -48,7 +48,7 @@ describe('Click action', function () {
         })
 
         const expectedHoveredItem = {index, isSelected: false}
-        const state = reducer(initialState, actions.clickItem(index, false))
+        const state = reducer(initialState, actions.clickItem(false, index))
         expect(state.hoveredItem).to.be.eql(expectedHoveredItem)
     })
     it('works on the selected item list as well', function () {
@@ -57,7 +57,7 @@ describe('Click action', function () {
             selectedItems: generateDummyItems(1, 3)
         })
         const expectedHoveredItem = {index, isSelected: true}
-        const state = reducer(initialState, actions.clickItem(index, true))
+        const state = reducer(initialState, actions.clickItem(true, index))
         expect(state.hoveredItem).to.be.eql(expectedHoveredItem)
     })
 })

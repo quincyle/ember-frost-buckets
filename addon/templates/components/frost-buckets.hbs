@@ -1,1 +1,3 @@
-{{yield}}
+{{#each redux-state.nonSelectedItems}}
+  {{frost-bucket-item onClick=(action 'clickItem')}}
+{{/each}}
