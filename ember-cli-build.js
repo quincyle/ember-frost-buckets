@@ -10,6 +10,11 @@ module.exports = function(defaults) {
     },
     'ember-cli-mocha': {
       useLintTree: false
+    },
+    sassOptions: {
+      includePaths: [
+        'addon/styles'
+      ]
     }
   });
 

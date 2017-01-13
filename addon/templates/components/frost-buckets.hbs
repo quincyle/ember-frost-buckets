@@ -1,3 +1,42 @@
-{{#each redux-state.nonSelectedItems}}
-  {{frost-bucket-item onClick=(action 'clickItem')}}
+<div class='frost-non-selected-bucket'>
+{{#each redux-state.nonSelectedItems as |item index|}}
+  {{frost-bucket-item
+    item=item
+    titleAttr=titleAttr
+    subtitleAttr=subtitleAttr
+    valueAttr=valueAttr
+    clickItem=(action 'clickItem' false)
+    doubleClickItem=(action 'doubleClickItem' false)
+    hook="nonSelectedItem"
+    hookQualifiers=(hash index=index)
+    index=index
+    isSelected=false
+    hovered=redux-state.hoveredItem
+  }}
 {{/each}}
+</div>
+<div class='frost-selected-bucket'>
+{{#each redux-state.selectedItems as |item index|}}
+  {{frost-bucket-item
+    item=item
+    titleAttr=titleAttr
+    subtitleAttr=subtitleAttr
+    valueAttr=valueAttr
+    clickItem=(action 'clickItem' true)
+    doubleClickItem=(action 'doubleClickItem' true)
+    hook="selectedItem"
+    hookQualifiers=(hash index=index)
+    index=index
+    isSelected=true
+    hovered=redux-state.hoveredItem
+  }}
+{{/each}}
+</div>
+<div class='frost-bucket-controls'>
+  {{frost-button
+    hook="bucket toggle button"
+    text=(if redux-state.hoveredItem.isSelected 'Remove' 'Add')
+    disabled=(eq redux-state.hoveredItem null)
+    onClick=(action "selectHover")
+  }}
+</div>

@@ -3,7 +3,6 @@ import reducer from 'ember-frost-buckets/reducer'
 import * as actions from 'ember-frost-buckets/actions'
 import {
     stateFactory,
-    DummyType,
     stateDefaults,
     generateDummyItems
 } from 'dummy/tests/helpers/reducer-helpers'

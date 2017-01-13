@@ -12,7 +12,8 @@ import {integration} from 'dummy/tests/helpers/ember-test-utils/setup-component-
 
 const selectors = {
   title: '.frost-bucket-item-title',
-  subtitle: '.frost-bucket-item-subtitle'
+  subtitle: '.frost-bucket-item-subtitle',
+  hovered: '.frost-hovered-bucket-item'
 }
 
 const test = integration('frost-bucket-item')
@@ -118,6 +119,56 @@ describe(test.label, function () {
 
     it('displays no subtitle', function () {
       expect($hook('myThing').find(selectors.subtitle).text()).to.be.equal('')
+    })
+  })
+
+  describe('hovered class ', function () {
+    const item = 'string item'
+    beforeEach(function () {
+      this.setProperties({
+        myHook: 'myThing',
+        item,
+        index: 0,
+        hovered: {index: 0, isSelected: true}
+      })
+
+      this.render(hbs`
+        {{frost-bucket-item
+          hook=myHook
+          item=item
+          titleAttr=titleAttr
+          subtitleAttr=subtitleAttr
+          valueAttr=valueAttr
+          clickItem=click
+          doubleClickItem=doubleClick
+          hovered=hovered
+          index=index
+          isSelected=true
+        }}
+      `)
+
+      return wait()
+    })
+
+    it('is present if hovered item matches index and isSelected', function () {
+      this.set('hovered', {index: 0, isSelected: true})
+      return wait().then(() => {
+        expect(this.$(selectors.hovered)).to.be.have.length(1)
+      })
+    })
+
+    it('is not present if hovered item does not match index', function () {
+      this.set('hovered', {index: 10, isSelected: true})
+      return wait().then(() => {
+        expect(this.$(selectors.hovered)).to.be.have.length(0)
+      })
+    })
+
+    it('is not present if hovered item does not match isSelected', function () {
+      this.set('hovered', {index: 0, isSelected: false})
+      return wait().then(() => {
+        expect(this.$(selectors.hovered)).to.be.have.length(0)
+      })
     })
   })
 

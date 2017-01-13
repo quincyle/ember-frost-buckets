@@ -1,0 +1,13 @@
+@import 'node_modules/ember-frost-core/addon/styles/addon';
+
+.frost-buckets {
+  background-color: $frost-color-lgrey-1;
+  display: inline-block;
+  .frost-selected-bucket, .frost-non-selected-bucket {
+    width: 500px;
+    display: inline-block;
+  }
+  .frost-hovered-bucket-item {
+    border: 2px solid $frost-color-blue-1;
+  }
+}

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import Immutable from 'seamless-immutable'
 
 export function stateDefaults() {
     return {

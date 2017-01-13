@@ -8,24 +8,26 @@ import {maybeAction} from './helpers/action-helpers'
 
 import layout from '../templates/components/frost-bucket-item'
 
-function computeProperties (item, titleAttr, subtitleAttr, valueAttr) {
-  let title
+function getTitle (item, titleAttr, valueAttr) {
   if (titleAttr !== undefined && titleAttr !== null) {
-    title = item[titleAttr]
+    return item[titleAttr]
   } else if (valueAttr !== undefined && valueAttr !== null) {
-    title = item[valueAttr]
-  } else {
-    title = item
+    return item[valueAttr]
   }
+  return item
+}
 
-  const subtitle = subtitleAttr === undefined || subtitleAttr === null ?
+function getSubtitle (item, subtitleAttr) {
+  return subtitleAttr === undefined || subtitleAttr === null ?
     '' :
     item[subtitleAttr]
+}
 
-  return {
-    title,
-    subtitle
+function getHovered(hovered, index, isSelected) {
+  if (hovered === null || hovered === undefined) {
+    return false
   }
+  return hovered.index === index && hovered.isSelected === isSelected
 }
 
 export default Component.extend({
@@ -36,6 +38,8 @@ export default Component.extend({
   layout,
 
   classNames: ['frost-bucket-item'],
+
+  classNameBindings: ['isHovered:frost-hovered-bucket-item'],
 
   // == PropTypes =============================================================
 
@@ -48,7 +52,9 @@ export default Component.extend({
     // options
     titleAttr: PropTypes.string,
     subtitleAttr: PropTypes.string,
-    valueAttr: PropTypes.string
+    valueAttr: PropTypes.string,
+    clickItem: PropTypes.func,
+    doubleClickItem: PropTypes.func
     // state
   },
 
@@ -76,12 +82,12 @@ export default Component.extend({
 
   // == Lifecycle Hooks =======================================================
   didReceiveAttrs () {
-    this.setProperties(computeProperties(
-      this.get('item'),
-      this.get('titleAttr'),
-      this.get('subtitleAttr'),
-      this.get('valueAttr')
-    ))
+    const item = this.get('item')
+    this.setProperties({
+      isHovered: getHovered(this.get('hovered'), this.get('index'), this.get('isSelected')),
+      title: getTitle(item, this.get('titleAttr'), this.get('valueAttr')),
+      subtitle: getSubtitle(item, this.get('subtitleAttr'))
+    })
   },
 
   // == Actions ===============================================================
