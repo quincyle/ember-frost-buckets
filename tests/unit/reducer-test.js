@@ -21,7 +21,8 @@ describe('Double click action', function () {
             selectedItems:[
                 {title:'Item 1' , subtitle: '', id:'item1'},
                 {title:'Item 2' , subtitle: '', id:'item2'}
-            ]
+            ],
+            selectedChanged: true
         }))
     })
     it('moves a selected item to the list of non-selected items', function () {
@@ -34,7 +35,8 @@ describe('Double click action', function () {
                 {title:'Item 2' , subtitle: '', id:'item2'},
                 {title:'Item 1' , subtitle: '', id:'item1'}
             ],
-            selectedItems:[]
+            selectedItems:[],
+            selectedChanged: true
         }))
     })
 })
@@ -49,6 +51,7 @@ describe('Click action', function () {
         const expectedHoveredItem = {index, isSelected: false}
         const state = reducer(initialState, actions.clickItem(false, index))
         expect(state.hoveredItem).to.be.eql(expectedHoveredItem)
+        expect(state.selectedChanged).to.be.equal(false)
     })
     it('works on the selected item list as well', function () {
         const index = 2
@@ -58,6 +61,7 @@ describe('Click action', function () {
         const expectedHoveredItem = {index, isSelected: true}
         const state = reducer(initialState, actions.clickItem(true, index))
         expect(state.hoveredItem).to.be.eql(expectedHoveredItem)
+        expect(state.selectedChanged).to.be.equal(false)
     })
 })
 
@@ -78,11 +82,13 @@ describe('Hover next action', function () {
             }
             const state = reducer(initialState, actions.hoverNextItem())
             expect(state.hoveredItem).to.eql({index: 2, isSelected: false})
+            expect(state.selectedChanged).to.be.equal(false)
         })
         it('the selected list', function () {
             initialState.selectedItems = items
             const state = reducer(initialState, actions.hoverNextItem())
             expect(state.hoveredItem).to.eql({index: 2, isSelected: true})
+            expect(state.selectedChanged).to.be.equal(false)
         })
     })
     it('does not select past the end of the list', function () {
@@ -93,6 +99,7 @@ describe('Hover next action', function () {
         })
         const state = reducer(initialState, actions.hoverNextItem())
         expect(state.hoveredItem).to.eql({index: 2, isSelected: true})
+        expect(state.selectedChanged).to.be.equal(false)
     })
 })
 
@@ -113,11 +120,13 @@ describe('Hover previous action', function () {
             }
             const state = reducer(initialState, actions.hoverPrevItem())
             expect(state.hoveredItem).to.eql({index: 1, isSelected: false})
+            expect(state.selectedChanged).to.be.equal(false)
         })
         it('the selected list', function () {
             initialState.selectedItems = items
             const state = reducer(initialState, actions.hoverPrevItem())
             expect(state.hoveredItem).to.eql({index: 1, isSelected: true})
+            expect(state.selectedChanged).to.be.equal(false)
         })
     })
     it('does not select past the beginning of the list', function ()  {
@@ -128,6 +137,7 @@ describe('Hover previous action', function () {
         })
         const state = reducer(initialState, actions.hoverPrevItem())
         expect(state.hoveredItem).to.eql({index: 0, isSelected: true})
+        expect(state.selectedChanged).to.be.equal(false)
     })
 })
 
@@ -139,6 +149,7 @@ describe('Clear hover action', function () {
         })
         const state = reducer(initialState, actions.clearHover())
         expect(state.hoveredItem).to.be.null
+        expect(state.selectedChanged).to.be.equal(false)
     })
 })
 
@@ -154,6 +165,7 @@ describe('Select item action', function () {
         const expectedNotSelected = [items[0], items[2]]
         expect(state.selectedItems).to.be.eql(expectedSelected)
         expect(state.nonSelectedItems).to.be.eql(expectedNotSelected)
+        expect(state.selectedChanged).to.be.equal(true)
     })
 })
 
@@ -168,6 +180,7 @@ describe('Deselect item action', function () {
         const expectedSelected = [items[0], items[2]]
         expect(state.selectedItems).to.be.eql(expectedSelected)
         expect(state.nonSelectedItems).to.be.eql(expectedNotSelected)
+        expect(state.selectedChanged).to.be.equal(true)
     })
 })
 
@@ -183,6 +196,7 @@ describe('Select hover action', function () {
         const expectedNotSelected = [items[0], items[2]]
         expect(state.selectedItems).to.be.eql(expectedSelected)
         expect(state.nonSelectedItems).to.be.eql(expectedNotSelected)
+        expect(state.selectedChanged).to.be.equal(true)
     })
     it('deselects the hovered item if it is selected', function () {
         const items = generateDummyItems(1, 3)
@@ -216,5 +230,55 @@ describe('Select hover action', function () {
         const expectedNotSelected = [items[1]]
         const expectedSelected = [items[0], items[2]]
         expect(state).to.be.eql(initialState)
+        expect(state.selectedChanged).to.be.equal(false)
     })
+})
+
+describe('received state action', function () {
+  let initialState
+  beforeEach(function () {
+    initialState = createState({
+      nonSelectedItems: generateDummyItems(1, 3)
+    })
+  })
+  afterEach(function () {
+    initialState = null
+  })
+  it('updates selected state properties', function () {
+    const newStateProps = {
+      hoveredItem: {index: 0, isSelected: false},
+      nonSelectedItems: generateDummyItems(3, 3),
+      selectedItems: generateDummyItems(1, 2),
+      titleAttr: 'not-label',
+      subtitleAttr: 'not-subtitle',
+      valueAttr: 'not-id',
+      selectedChanged: true
+    }
+    state = reducer(initialState, actions.receivedState(newStateProps))
+    expect(state.hoveredItem).to.be.eql(newStateProps.hoveredItem)
+    expect(state.nonSelectedItems).to.be.eql(newStateProps.nonSelectedItems)
+    expect(state.selectedItems).to.be.eql(newStateProps.selectedItems)
+    expect(state.titleAttr).to.be.eql(newStateProps.titleAttr)
+    expect(state.subtitleAttr).to.be.eql(newStateProps.subtitleAttr)
+    expect(state.valueAttr).to.be.eql(newStateProps.valueAttr)
+  })
+  it('does not indicate change in selected items', function () {
+    const newStateProps = {
+      hoveredItem: {index: 0, isSelected: false},
+      nonSelectedItems: generateDummyItems(3, 3),
+      selectedItems: generateDummyItems(1, 2),
+      titleAttr: 'not-label',
+      subtitleAttr: 'not-subtitle',
+      valueAttr: 'not-id'
+    }
+    state = reducer(initialState, actions.receivedState(newStateProps))
+    expect(state.selectedChanged).to.be.false
+  })
+  it('unsets the hovered item if the one provided is out of range', function () {
+    const newStateProps = {
+      hoveredItem: {index: 10, isSelected: false}
+    }
+    state = reducer(initialState, actions.receivedState(newStateProps))
+    expect(state.hoveredItem).to.be.null
+  })
 })

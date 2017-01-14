@@ -5,7 +5,8 @@ export const INITIAL_STATE = {
   hoveredItem: null,
   selectedItems: [],
   nonSelectedItems: [],
-  allItems: []
+  allItems: [],
+  selectedChanged: false
 }
 
 function selectItem (state, index) {
@@ -14,7 +15,8 @@ function selectItem (state, index) {
   selectedItems.push(item)
   return {
     selectedItems,
-    nonSelectedItems: _.without(nonSelectedItems, item)
+    nonSelectedItems: _.without(nonSelectedItems, item),
+    selectedChanged: true
   }
 }
 
@@ -24,13 +26,15 @@ function deselectItem (state, index) {
   nonSelectedItems.push(item)
   return {
     selectedItems: _.without(selectedItems, item),
-    nonSelectedItems
+    nonSelectedItems,
+    selectedChanged: true
   }
 }
 
 function hoverItem (index, isSelected) {
   return {
-    hoveredItem: {index, isSelected}
+    hoveredItem: {index, isSelected},
+    selectedChanged: false
   }
 }
 
@@ -59,18 +63,34 @@ function hoverPrev (state) {
   return state
 }
 
+function receiveState (state, newStateProps) {
+  const nonSelectedItems = newStateProps.nonSelectedItems || state.nonSelectedItems
+  const selectedItems = newStateProps.selectedItems || state.nonSelectedItems
+  let hoveredItem = newStateProps.hoveredItem
+  if (hoveredItem !== null && hoveredItem !== undefined) {
+    if (hoveredItem.index < 0 ||
+      (hoveredItem.isSelected && hoveredItem.index >= selectedItems.length) ||
+      hoveredItem.index >= nonSelectedItems.length
+    ) {
+      hoveredItem = null
+    }
+  }
+  return _.assign(newStateProps, {
+    hoveredItem,
+    selectedChanged: false
+  })
+}
+
 export default function reducer (state, action) {
   let nextState
   switch (action.type) {
       case Actions.DOUBLE_CLICK_ITEM:
-        nextState = {
-          hoveredItem: null
-        }
         if (action.isSelectedItem) {
           nextState = deselectItem(state, action.index)
         } else {
           nextState = selectItem(state, action.index)
         }
+        nextState.hoveredItem = null
         break
 
       case Actions.CLICK_ITEM:
@@ -86,7 +106,7 @@ export default function reducer (state, action) {
         break
 
       case Actions.CLEAR_HOVER:
-        nextState = {hoveredItem: null}
+        nextState = {hoveredItem: null, selectedChanged: false}
         break
 
       case Actions.SELECT_ITEM:
@@ -101,6 +121,7 @@ export default function reducer (state, action) {
         if (state.hoveredItem === null) {
           break
         }
+
         if (state.hoveredItem.isSelected) {
           nextState = deselectItem(state, state.hoveredItem.index)
           nextState.hoveredItem = null
@@ -108,6 +129,10 @@ export default function reducer (state, action) {
           nextState = selectItem(state, state.hoveredItem.index)
           nextState.hoveredItem = null
         }
+        break
+
+      case Actions.RECEIVED_STATE:
+        nextState = receiveState(state, action.state)
         break
 
       case REDUX_INIT:

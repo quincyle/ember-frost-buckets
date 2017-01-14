@@ -7,7 +7,7 @@
     valueAttr=valueAttr
     clickItem=(action 'clickItem' false)
     doubleClickItem=(action 'doubleClickItem' false)
-    hook="nonSelectedItem"
+    hook="bucket-nonSelectedItem"
     hookQualifiers=(hash index=index)
     index=index
     isSelected=false
@@ -24,7 +24,7 @@
     valueAttr=valueAttr
     clickItem=(action 'clickItem' true)
     doubleClickItem=(action 'doubleClickItem' true)
-    hook="selectedItem"
+    hook="bucket-selectedItem"
     hookQualifiers=(hash index=index)
     index=index
     isSelected=true
@@ -34,9 +34,21 @@
 </div>
 <div class='frost-bucket-controls'>
   {{frost-button
-    hook="bucket toggle button"
+    hook="bucket-toggle-button"
     text=(if redux-state.hoveredItem.isSelected 'Remove' 'Add')
     disabled=(eq redux-state.hoveredItem null)
     onClick=(action "selectHover")
+  }}
+  {{frost-button
+    hook="bucket-next-button"
+    text="Next"
+    disabled=(eq redux-state.hoveredItem null)
+    onClick=(action "hoverNextItem")
+  }}
+  {{frost-button
+    hook="bucket-prev-button"
+    text="Previous"
+    disabled=(eq redux-state.hoveredItem null)
+    onClick=(action "hoverPrevItem")
   }}
 </div>

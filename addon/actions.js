@@ -20,7 +20,8 @@ export const Actions = Immutable.from({
   HOVER_NEXT_ITEM: 'frost-buckets/HOVER_NEXT_ITEM',
   HOVER_PREV_ITEM: 'frost-buckets/HOVER_PREV_ITEM',
   CLEAR_HOVER: 'frost-buckets/CLEAR_HOVER',
-  SELECT_HOVER: 'frost-buckets/SELECT_HOVER'
+  SELECT_HOVER: 'frost-buckets/SELECT_HOVER',
+  RECEIVED_STATE: 'frost-buckets/RECEIVED_STATE'
 })
 
 export function clickItem (isSelectedItem, index) {
@@ -54,6 +55,13 @@ export function deselectItem (index) {
   }
 }
 
+export function receivedState (state) {
+  return {
+    type: Actions.RECEIVED_STATE,
+    state
+  }
+}
+
 export const hoverNextItem = simpleAction(Actions.HOVER_NEXT_ITEM)
 
 export const hoverPrevItem = simpleAction(Actions.HOVER_PREV_ITEM)
@@ -61,3 +69,4 @@ export const hoverPrevItem = simpleAction(Actions.HOVER_PREV_ITEM)
 export const clearHover = simpleAction(Actions.CLEAR_HOVER)
 
 export const selectHover = simpleAction(Actions.SELECT_HOVER)
+

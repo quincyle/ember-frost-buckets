@@ -8,8 +8,9 @@ export function stateDefaults() {
         nonSelectedItems: [],
         allItems: [],
         titleAttr: 'title',
-        subtitleAtrr: 'subtitle',
-        valueAttr: 'id'
+        subtitleAttr: 'subtitle',
+        valueAttr: 'id',
+        selectedChanged: false
     }
 }
 

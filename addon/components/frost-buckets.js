@@ -27,6 +27,13 @@ function removeSelectedItems (items, selectedItems) {
   })
 }
 
+function valueFromState({selectedItems, valueAttr}) {
+  if (valueAttr === undefined) {
+    return selectedItems
+  }
+  return _.map(selectedItems, valueAttr)
+}
+
 export default Ember.Component.extend({
   layout,
   classNames: ['frost-buckets'],
@@ -63,13 +70,38 @@ export default Ember.Component.extend({
     reduxStore.subscribe(() => this.updateState())
   },
 
+  didReceiveAttrs () {
+    const stateAttrs = [
+      'items',
+      'selectedItems',
+      'hoveredItem',
+      'titleAttr',
+      'subtitleAttr',
+      'valueAttr'
+    ]
+    const newState = _.chain(stateAttrs)
+      .map((attrName) => {
+        const val = this.get(attrName)
+        if (val !== undefined) {
+          return [attrName, val]
+        }
+      })
+      .filter()
+      .fromPairs()
+      .value()
+
+    newState.nonSelectedItems = removeSelectedItems(newState.items, newState.selectedItems)
+    delete newState.items
+    this.get('redux-store').dispatch(actions.receivedState(newState))
+  },
+
   updateState () {
     const state = this.get('redux-store').getState()
     this.set('redux-state', state)
-  },
-
-  onChange () {
-
+    const onChange = this.get('onChange')
+    if (state.selectedChanged && onChange) {
+      onChange(valueFromState(state))
+    }
   },
 
   actions: _.assign({}, actionDispatchers)
