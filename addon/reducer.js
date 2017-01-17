@@ -135,6 +135,17 @@ export default function reducer (state, action) {
         nextState = receiveState(state, action.state)
         break
 
+      case Actions.REORDER_ITEMS:
+        nextState = {
+          hoveredItem: {
+            index: _.findIndex(action.newOrder, action.item),
+            isSelected: true
+          },
+          selectedItems: action.newOrder,
+          selectedChanged: true
+        }
+        break
+
       case REDUX_INIT:
         break
 

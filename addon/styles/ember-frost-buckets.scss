@@ -1,13 +1,33 @@
 @import 'node_modules/ember-frost-core/addon/styles/addon';
 
 .frost-buckets {
-  background-color: $frost-color-lgrey-1;
   display: inline-block;
+  h1 {
+    font-size: 20px;
+  }
   .frost-selected-bucket, .frost-non-selected-bucket {
+    padding-right: 10px;
     width: 500px;
     display: inline-block;
+    border: 2px solid $frost-color-lgrey-1;
+  }
+  .frost-bucket-item {
+    border: 2px solid $frost-color-night-3;
+    margin: 2px;
+    padding-left: 5px;
   }
   .frost-hovered-bucket-item {
     border: 2px solid $frost-color-blue-1;
+  }
+  .frost-bucket-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    .frost-button {
+      background-color: $frost-color-blue-1;
+      height: 40px;
+      width: 100px;
+    }
   }
 }

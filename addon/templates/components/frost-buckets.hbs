@@ -1,37 +1,41 @@
-<div class='frost-non-selected-bucket'>
-{{#each redux-state.nonSelectedItems as |item index|}}
-  {{frost-bucket-item
-    item=item
-    titleAttr=titleAttr
-    subtitleAttr=subtitleAttr
-    valueAttr=valueAttr
-    clickItem=(action 'clickItem' false)
-    doubleClickItem=(action 'doubleClickItem' false)
-    hook="bucket-nonSelectedItem"
-    hookQualifiers=(hash index=index)
-    index=index
-    isSelected=false
-    hovered=redux-state.hoveredItem
-  }}
-{{/each}}
-</div>
-<div class='frost-selected-bucket'>
-{{#each redux-state.selectedItems as |item index|}}
-  {{frost-bucket-item
-    item=item
-    titleAttr=titleAttr
-    subtitleAttr=subtitleAttr
-    valueAttr=valueAttr
-    clickItem=(action 'clickItem' true)
-    doubleClickItem=(action 'doubleClickItem' true)
-    hook="bucket-selectedItem"
-    hookQualifiers=(hash index=index)
-    index=index
-    isSelected=true
-    hovered=redux-state.hoveredItem
-  }}
-{{/each}}
-</div>
+{{#frost-scroll class='frost-non-selected-bucket'}}
+  {{#each redux-state.nonSelectedItems as |item index|}}
+    {{frost-bucket-item
+      item=item
+      titleAttr=titleAttr
+      subtitleAttr=subtitleAttr
+      valueAttr=valueAttr
+      clickItem=(action 'clickItem' false)
+      doubleClickItem=(action 'doubleClickItem' false)
+      hook="bucket-nonSelectedItem"
+      hookQualifiers=(hash index=index)
+      index=index
+      isSelected=false
+      hovered=redux-state.hoveredItem
+    }}
+  {{/each}}
+{{/frost-scroll}}
+{{#frost-scroll class='frost-selected-bucket'}}
+  {{#sortable-group onChange=(action 'reorderItems') as |group|}}
+    {{#each redux-state.selectedItems as |item index|}}
+      {{#sortable-item group=group model=item}}
+        {{frost-bucket-item
+          item=item
+          titleAttr=titleAttr
+          subtitleAttr=subtitleAttr
+          valueAttr=valueAttr
+          clickItem=(action 'clickItem' true)
+          doubleClickItem=(action 'doubleClickItem' true)
+          hook="bucket-selectedItem"
+          hookQualifiers=(hash index=index)
+          index=index
+          isSelected=true
+          hovered=redux-state.hoveredItem
+        }}
+      {{/sortable-item}}
+    {{/each}}
+  {{/sortable-group}}
+{{/frost-scroll}}
 <div class='frost-bucket-controls'>
   {{frost-button
     hook="bucket-toggle-button"

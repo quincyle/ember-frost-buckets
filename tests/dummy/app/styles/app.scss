@@ -1,2 +1,9 @@
 @import 'node_modules/ember-frost-core/addon/styles/addon';
 @import './ember-frost-buckets';
+
+.frost-buckets {
+  .frost-non-selected-bucket, .frost-selected-bucket {
+    height: 700px;
+    margin: 5px;
+  }
+}

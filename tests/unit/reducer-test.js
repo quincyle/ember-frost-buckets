@@ -282,3 +282,36 @@ describe('received state action', function () {
     expect(state.hoveredItem).to.be.null
   })
 })
+
+describe('reorder items action', function () {
+  let initialState
+  let selectedItems
+  let newOrder
+  let movedItem
+  let state
+  beforeEach(function () {
+    selectedItems = generateDummyItems(1, 4)
+    initialState = createState({
+      selectedItems
+    })
+    // reorder 3rd and 2nd items
+    newOrder = [
+      selectedItems[0],
+      selectedItems[2],
+      selectedItems[1],
+      selectedItems[3]
+    ]
+    movedItem = selectedItems[2]
+    state = reducer(initialState, actions.reorderItems(newOrder, movedItem))
+  })
+
+  it('reorders the selected items', function () {
+    expect(state.selectedItems).to.be.eql(newOrder)
+  })
+  it('sets the hovered item to the dragged item', function () {
+    expect(state.hoveredItem).to.be.eql({
+      index: 1,
+      isSelected: true
+    })
+  })
+})

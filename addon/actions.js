@@ -21,7 +21,8 @@ export const Actions = Immutable.from({
   HOVER_PREV_ITEM: 'frost-buckets/HOVER_PREV_ITEM',
   CLEAR_HOVER: 'frost-buckets/CLEAR_HOVER',
   SELECT_HOVER: 'frost-buckets/SELECT_HOVER',
-  RECEIVED_STATE: 'frost-buckets/RECEIVED_STATE'
+  RECEIVED_STATE: 'frost-buckets/RECEIVED_STATE',
+  REORDER_ITEMS: 'frost-buckets/REORDER_ITEMS'
 })
 
 export function clickItem (isSelectedItem, index) {
@@ -59,6 +60,14 @@ export function receivedState (state) {
   return {
     type: Actions.RECEIVED_STATE,
     state
+  }
+}
+
+export function reorderItems (newOrder, item) {
+  return {
+    type: Actions.REORDER_ITEMS,
+    newOrder,
+    item
   }
 }
 
