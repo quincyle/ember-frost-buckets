@@ -63,15 +63,18 @@ function hoverPrev (state) {
   return state
 }
 
+function hoveredOutOfBounds (hoveredItem, selectedItems, nonSelectedItems) {
+  return hoveredItem.index < 0 ||
+      (hoveredItem.isSelected && hoveredItem.index >= selectedItems.length) ||
+      hoveredItem.index >= nonSelectedItems.length
+}
+
 function receiveState (state, newStateProps) {
   const nonSelectedItems = newStateProps.nonSelectedItems || state.nonSelectedItems
   const selectedItems = newStateProps.selectedItems || state.nonSelectedItems
   let hoveredItem = newStateProps.hoveredItem
   if (hoveredItem !== null && hoveredItem !== undefined) {
-    if (hoveredItem.index < 0 ||
-      (hoveredItem.isSelected && hoveredItem.index >= selectedItems.length) ||
-      hoveredItem.index >= nonSelectedItems.length
-    ) {
+    if (hoveredOutOfBounds(hoveredItem, selectedItems, nonSelectedItems)) {
       hoveredItem = null
     }
   }
@@ -80,78 +83,76 @@ function receiveState (state, newStateProps) {
     selectedChanged: false
   })
 }
+const actionFunctions = {
+  [Actions.DOUBLE_CLICK_ITEM] (state, action) {
+    let nextState
+    if (action.isSelectedItem) {
+      nextState = deselectItem(state, action.index)
+    } else {
+      nextState = selectItem(state, action.index)
+    }
+    nextState.hoveredItem = null
+    return nextState
+  },
+  [Actions.CLICK_ITEM] (state, action) {
+    return hoverItem(action.index, action.isSelectedItem)
+  },
+
+  [Actions.HOVER_NEXT_ITEM]: hoverNext,
+
+  [Actions.HOVER_PREV_ITEM]: hoverPrev,
+
+  [Actions.CLEAR_HOVER] (state, action) {
+    return {hoveredItem: null, selectedChanged: false}
+  },
+
+  [Actions.SELECT_ITEM] (state, action) {
+    return selectItem(state, action.index)
+  },
+
+  [Actions.DESELECT_ITEM] (state, action) {
+    return deselectItem(state, action.index)
+  },
+
+  [Actions.SELECT_HOVER] (state, action) {
+    if (state.hoveredItem === null) {
+      return state
+    }
+    let nextState
+    if (state.hoveredItem.isSelected) {
+      nextState = deselectItem(state, state.hoveredItem.index)
+      nextState.hoveredItem = null
+    } else {
+      nextState = selectItem(state, state.hoveredItem.index)
+      nextState.hoveredItem = null
+    }
+    return nextState
+  },
+  [Actions.RECEIVED_STATE] (state, action) {
+    return receiveState(state, action.state)
+  },
+
+  [Actions.REORDER_ITEMS] (state, action) {
+    return {
+      hoveredItem: {
+        index: _.findIndex(action.newOrder, action.item),
+        isSelected: true
+      },
+      selectedItems: action.newOrder,
+      selectedChanged: true
+    }
+  },
+  [REDUX_INIT]: _.noop
+}
 
 export default function reducer (state, action) {
-  let nextState
-  switch (action.type) {
-      case Actions.DOUBLE_CLICK_ITEM:
-        if (action.isSelectedItem) {
-          nextState = deselectItem(state, action.index)
-        } else {
-          nextState = selectItem(state, action.index)
-        }
-        nextState.hoveredItem = null
-        break
-
-      case Actions.CLICK_ITEM:
-        nextState = hoverItem(action.index, action.isSelectedItem)
-        break
-
-      case Actions.HOVER_NEXT_ITEM:
-        nextState = hoverNext(state)
-        break
-
-      case Actions.HOVER_PREV_ITEM:
-        nextState = hoverPrev(state)
-        break
-
-      case Actions.CLEAR_HOVER:
-        nextState = {hoveredItem: null, selectedChanged: false}
-        break
-
-      case Actions.SELECT_ITEM:
-        nextState = selectItem(state, action.index)
-        break
-
-      case Actions.DESELECT_ITEM:
-        nextState = deselectItem(state, action.index)
-        break
-
-      case Actions.SELECT_HOVER:
-        if (state.hoveredItem === null) {
-          break
-        }
-
-        if (state.hoveredItem.isSelected) {
-          nextState = deselectItem(state, state.hoveredItem.index)
-          nextState.hoveredItem = null
-        } else {
-          nextState = selectItem(state, state.hoveredItem.index)
-          nextState.hoveredItem = null
-        }
-        break
-
-      case Actions.RECEIVED_STATE:
-        nextState = receiveState(state, action.state)
-        break
-
-      case Actions.REORDER_ITEMS:
-        nextState = {
-          hoveredItem: {
-            index: _.findIndex(action.newOrder, action.item),
-            isSelected: true
-          },
-          selectedItems: action.newOrder,
-          selectedChanged: true
-        }
-        break
-
-      case REDUX_INIT:
-        break
-
-      default:
-        throw new Error(`Action ${action.type} unrecognized`)
+  const reducer = actionFunctions[action.type]
+  if (reducer === undefined) {
+    throw new Error(`Action ${action.type} unrecognized`)
   }
 
-  return _.defaults(nextState, state)
+  return _.defaults(
+    reducer(state, action),
+    state
+  )
 }

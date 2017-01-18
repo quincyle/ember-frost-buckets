@@ -1,18 +1,19 @@
 import Ember from 'ember'
+const {Route} = Ember
 import _ from 'lodash'
 
 function generateDummyItems (firstIndex, numberOfItems) {
-    const range = _.range(firstIndex, firstIndex + numberOfItems)
-    return _.map(range, (index) => {
-        return {
-            label: 'Item ' + index,
-            description: 'Description for item ' + index,
-            id: 'item' + index
-        }
-    })
+  const range = _.range(firstIndex, firstIndex + numberOfItems)
+  return _.map(range, (index) => {
+    return {
+      label: 'Item ' + index,
+      description: 'Description for item ' + index,
+      id: 'item' + index
+    }
+  })
 }
 
-export default Ember.Route.extend({
+export default Route.extend({
   model () {
     const items = generateDummyItems(1, 10)
     return {

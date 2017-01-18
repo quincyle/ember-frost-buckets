@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "ember build",
+    "lint": "./node_modules/.bin/eslint addon/**/*.js tests/**/*.js",
     "start": "ember server",
     "test": "ember try:testall"
   },
@@ -45,7 +46,6 @@
     "ember-hook": "1.4.1",
     "ember-load-initializers": "^0.5.1",
     "ember-lodash-shim": "1.0.1",
-    "ember-prism": "0.0.8",
     "ember-prop-types": "3.4.0",
     "ember-redux": "1.10.0",
     "ember-resolver": "^2.0.3",

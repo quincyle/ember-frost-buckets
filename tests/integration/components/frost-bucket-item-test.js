@@ -25,7 +25,6 @@ describe(test.label, function () {
     id: 'test-id-1'
   }
 
-
   let sandbox
 
   beforeEach(function () {
@@ -176,7 +175,7 @@ describe(test.label, function () {
     let click
     let doubleClick
     beforeEach(function () {
-      click = sandbox.spy(),
+      click = sandbox.spy()
       doubleClick = sandbox.spy()
       this.setProperties({
         myHook: 'myThing',

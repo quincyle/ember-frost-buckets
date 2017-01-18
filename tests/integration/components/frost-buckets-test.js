@@ -1,7 +1,7 @@
+/*globals beforeEach, afterEach*/
 import {expect} from 'chai'
 import {$hook} from 'ember-hook'
 import {
-  setupComponentTest,
   it
 } from 'ember-mocha'
 import wait from 'ember-test-helpers/wait'
@@ -254,11 +254,12 @@ describe(test.label, function () {
       onChange = sinon.spy()
     })
     afterEach(function () {
-      //clear spy between tests
+      // clear spy between tests
       onChange = null
     })
 
-    it('is called with an array of the selected items when valueAttr is undefined', function () {      this.setProperties({
+    it('is called with an array of the selected items when valueAttr is undefined', function () {
+      this.setProperties({
         items: generateDummyItems(1, 3),
         titleAttr: 'title',
         subtitleAttr: 'subtitle',

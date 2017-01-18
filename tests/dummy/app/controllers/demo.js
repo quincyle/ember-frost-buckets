@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import Ember from 'ember'
+const {Controller} = Ember
 
 function stringifyValue (value) {
   return JSON.stringify(value, null, 2)
@@ -13,7 +14,7 @@ const templateString = `{{frost-buckets
 }}
 `
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   templateString,
   init () {
     this._super(...arguments)

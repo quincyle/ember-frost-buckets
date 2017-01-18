@@ -48,7 +48,6 @@ export function selectItem (index) {
   }
 }
 
-
 export function deselectItem (index) {
   return {
     type: Actions.DESELECT_ITEM,

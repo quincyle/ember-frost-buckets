@@ -4,9 +4,8 @@
 
 import {Component} from 'ember-frost-core'
 import {PropTypes} from 'ember-prop-types'
-import {maybeAction} from './helpers/action-helpers'
-
 import layout from '../templates/components/frost-bucket-item'
+import {maybeAction} from './helpers/action-helpers'
 
 function getTitle (item, titleAttr, valueAttr) {
   if (titleAttr !== undefined && titleAttr !== null) {
@@ -18,12 +17,12 @@ function getTitle (item, titleAttr, valueAttr) {
 }
 
 function getSubtitle (item, subtitleAttr) {
-  return subtitleAttr === undefined || subtitleAttr === null ?
-    '' :
-    item[subtitleAttr]
+  return subtitleAttr === undefined || subtitleAttr === null
+    ? ''
+    : item[subtitleAttr]
 }
 
-function getHovered(hovered, index, isSelected) {
+function getHovered (hovered, index, isSelected) {
   if (hovered === null || hovered === undefined) {
     return false
   }

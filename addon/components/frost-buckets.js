@@ -1,11 +1,12 @@
-import Ember from 'ember';
-import layout from '../templates/components/frost-buckets'
-import reducer, {INITIAL_STATE} from '../reducer'
+import Ember from 'ember'
+const {Component} = Ember
 import * as actions from '../actions'
-import redux  from 'npm:redux'
+import reducer, {INITIAL_STATE} from '../reducer'
+import layout from '../templates/components/frost-buckets'
+import PropTypes from 'ember-prop-types'
 const {createStore} = redux
 import _ from 'lodash'
-import PropTypes from 'ember-prop-types'
+import redux from 'npm:redux'
 
 const actionDispatchers = _.chain(actions)
   .toPairs()
@@ -27,14 +28,14 @@ function removeSelectedItems (items, selectedItems) {
   })
 }
 
-function valueFromState({selectedItems, valueAttr}) {
+function valueFromState ({selectedItems, valueAttr}) {
   if (valueAttr === undefined) {
     return selectedItems
   }
   return _.map(selectedItems, valueAttr)
 }
 
-export default Ember.Component.extend({
+export default Component.extend({
   layout,
   classNames: ['frost-buckets'],
   // == PropTypes =============================================================
@@ -52,7 +53,7 @@ export default Ember.Component.extend({
     // state
   },
 
-  init() {
+  init () {
     this._super(...arguments)
     const selectedItems = this.get('selectedItems')
     const reduxStore = createStore(reducer, _.defaults({
@@ -105,4 +106,4 @@ export default Ember.Component.extend({
   },
 
   actions: _.assign({}, actionDispatchers)
-});
+})
