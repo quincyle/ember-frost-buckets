@@ -83,6 +83,7 @@ function receiveState (state, newStateProps) {
     selectedChanged: false
   })
 }
+
 const actionFunctions = {
   [Actions.DOUBLE_CLICK_ITEM] (state, action) {
     let nextState
@@ -94,6 +95,7 @@ const actionFunctions = {
     nextState.hoveredItem = null
     return nextState
   },
+
   [Actions.CLICK_ITEM] (state, action) {
     return hoverItem(action.index, action.isSelectedItem)
   },
@@ -128,6 +130,7 @@ const actionFunctions = {
     }
     return nextState
   },
+
   [Actions.RECEIVED_STATE] (state, action) {
     return receiveState(state, action.state)
   },
@@ -142,6 +145,7 @@ const actionFunctions = {
       selectedChanged: true
     }
   },
+
   [REDUX_INIT]: _.noop
 }
 
