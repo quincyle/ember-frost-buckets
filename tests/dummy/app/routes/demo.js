@@ -14,11 +14,13 @@ function generateDummyItems (firstIndex, numberOfItems) {
 
 export default Ember.Route.extend({
   model () {
+    const items = generateDummyItems(1, 10)
     return {
-      items: generateDummyItems(1, 10),
+      items,
       titleAttr: 'label',
       subtitleAttr: 'description',
-      valueAttr: 'id'
+      valueAttr: 'id',
+      stringifiedItems: JSON.stringify(items, null, 2)
     }
   }
 })

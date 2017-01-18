@@ -4,4 +4,13 @@
   titleAttr=model.titleAttr
   subtitleAttr=model.subtitleAttr
   valueAttr=model.valueAttr
+  onChange=(action 'onChange')
 }}
+<div class='code-section'>
+<h1>Value</h1>
+{{ivy-codemirror value=stringifiedValue options=(hash mode='javascript')}}
+<h1>Items</h1>
+{{ivy-codemirror value=model.stringifiedItems options=(hash mode='javascript')}}
+<h1>Template</h1>
+{{ivy-codemirror value=templateString options=(hash mode='handlebars')}}
+</div>

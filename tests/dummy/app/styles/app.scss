@@ -2,8 +2,16 @@
 @import './ember-frost-buckets';
 
 .frost-buckets {
+  height: 700px;
   .frost-non-selected-bucket, .frost-selected-bucket {
-    height: 700px;
     margin: 5px;
   }
+}
+
+.code-section {
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  width: 400px;
+  float: right;
 }
