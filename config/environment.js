@@ -5,8 +5,7 @@ module.exports = function (/* environment, appConfig */) {
     'ember-prop-types': {
       spreadProperty: 'options',
       throwErrors: true,
-      validate: true,
-      validateOnUpdate: true
+      validate: true
     }
   }
 }
