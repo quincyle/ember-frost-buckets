@@ -26,8 +26,11 @@ const test = integration('frost-buckets')
 describe(test.label, function () {
   test.setup()
   it('renders', function () {
+    this.set('items', [])
     this.render(hbs`
-      {{frost-buckets}}
+      {{frost-buckets
+        items=items
+      }}
     `)
     expect(this.$('')).to.have.length(1)
   })
