@@ -1,4 +1,4 @@
-{{#frost-scroll class='frost-non-selected-bucket'}}
+{{#frost-scroll class='frost-non-selected-bucket' hook='bucket-nonSelectedItemsScroll'}}
   {{#each redux-state.nonSelectedItems as |item index|}}
     {{frost-bucket-item
       item=item
@@ -7,7 +7,7 @@
       valueAttr=valueAttr
       clickItem=(action 'clickItem' false)
       doubleClickItem=(action 'doubleClickItem' false)
-      hook="bucket-nonSelectedItem"
+      hook='bucket-nonSelectedItem'
       hookQualifiers=(hash index=index)
       index=index
       isSelected=false
@@ -15,7 +15,7 @@
     }}
   {{/each}}
 {{/frost-scroll}}
-{{#frost-scroll class='frost-selected-bucket'}}
+{{#frost-scroll class='frost-selected-bucket' hook='bucket-selectedItemsScroll'}}
   {{#sortable-group onChange=(action 'reorderItems') as |group|}}
     {{#each redux-state.selectedItems as |item index|}}
       {{#sortable-item group=group model=item}}
@@ -26,7 +26,7 @@
           valueAttr=valueAttr
           clickItem=(action 'clickItem' true)
           doubleClickItem=(action 'doubleClickItem' true)
-          hook="bucket-selectedItem"
+          hook='bucket-selectedItem'
           hookQualifiers=(hash index=index)
           index=index
           isSelected=true
@@ -38,21 +38,21 @@
 {{/frost-scroll}}
 <div class='frost-bucket-controls'>
   {{frost-button
-    hook="bucket-toggle-button"
+    hook='bucket-toggle-button'
     text=(if redux-state.hoveredItem.isSelected 'Remove' 'Add')
     disabled=(eq redux-state.hoveredItem null)
-    onClick=(action "selectHover")
+    onClick=(action 'selectHover')
   }}
   {{frost-button
-    hook="bucket-next-button"
-    text="Next"
+    hook='bucket-next-button'
+    text='Next'
     disabled=(eq redux-state.hoveredItem null)
-    onClick=(action "hoverNextItem")
+    onClick=(action 'hoverNextItem')
   }}
   {{frost-button
-    hook="bucket-prev-button"
-    text="Previous"
+    hook='bucket-prev-button'
+    text='Previous'
     disabled=(eq redux-state.hoveredItem null)
-    onClick=(action "hoverPrevItem")
+    onClick=(action 'hoverPrevItem')
   }}
 </div>

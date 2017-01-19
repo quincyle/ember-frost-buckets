@@ -1,6 +1,12 @@
-/*jshint node:true*/
-'use strict';
+'use strict'
 
-module.exports = function(/* environment, appConfig */) {
-  return { };
-};
+module.exports = function (/* environment, appConfig */) {
+  return {
+    'ember-prop-types': {
+      spreadProperty: 'options',
+      throwErrors: true,
+      validate: true,
+      validateOnUpdate: true
+    }
+  }
+}

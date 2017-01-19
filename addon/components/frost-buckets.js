@@ -3,7 +3,7 @@ const {Component} = Ember
 import * as actions from '../actions'
 import reducer, {INITIAL_STATE} from '../reducer'
 import layout from '../templates/components/frost-buckets'
-import PropTypes from 'ember-prop-types'
+import PropTypesMixin, {PropTypes} from 'ember-prop-types'
 const {createStore} = redux
 import _ from 'lodash'
 import redux from 'npm:redux'
@@ -35,7 +35,7 @@ function valueFromState ({selectedItems, valueAttr}) {
   return _.map(selectedItems, valueAttr)
 }
 
-export default Component.extend({
+export default Component.extend(PropTypesMixin, {
   layout,
   classNames: ['frost-buckets'],
   // == PropTypes =============================================================

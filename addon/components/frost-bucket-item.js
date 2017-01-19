@@ -3,7 +3,7 @@
  */
 
 import {Component} from 'ember-frost-core'
-import {PropTypes} from 'ember-prop-types'
+import PropTypesMixin, {PropTypes} from 'ember-prop-types'
 import layout from '../templates/components/frost-bucket-item'
 import {maybeAction} from './helpers/action-helpers'
 
@@ -29,7 +29,7 @@ function getHovered (hovered, index, isSelected) {
   return hovered.index === index && hovered.isSelected === isSelected
 }
 
-export default Component.extend({
+export default Component.extend(PropTypesMixin, {
   // == Dependencies ==========================================================
 
   // == Keyword Properties ====================================================
