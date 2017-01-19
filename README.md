@@ -44,6 +44,28 @@ would make the tiles display the `label` as the main text and the `description` 
 ### Setting the selected items
 If you want to set the selected items to the `frost-buckets` component specify the `selectedItems` attribute. The component assumes that items are unique and selected items will not appear in the list of non-selected items.
 
+### Setting the hovered item
+To set the hover on a specific item you can set it using `hoveredItem`. This attribute is a hash with two properties, `index` (a number), and `isSelected` (a boolean). `isSelected` determiines which bucket the item is in (i.e. with selected items or non selected items), and `index` specifies the zero based index the number is at.
+Example:
+
+```javascript
+let hoveredItem = {
+  index: 1,
+  isSelected: true
+}
+```
+using the following:
+```handlebars
+{{frost-buckets
+  items=items
+  hoveredItem=hoveredItem
+  titleAttr='label'
+  subtitleAttr='description'
+  valueAttr='id'
+}}
+```
+would set the hover state on the second item in the selected items bucket.
+
 ### Reacting to changes
 If an `onChange` function is specified, it will be called when the list is changed with the new list of selected values. This list is comprised of either the items themselves or the value specified by the `valueAttr` key. For example,
 
@@ -61,9 +83,10 @@ using the following:
   titleAttr='label'
   subtitleAttr='description'
   valueAttr='id'
+  onChange=(action 'onBucketsChange')
 }}
 ```
-will mean that `onChange` is called with an array of the `id` properties of all the selected items.
+will mean that the action `onBucketsChange` is called with an array of the `id` properties of all the selected items.
 
 ## Development
 ### Installation
