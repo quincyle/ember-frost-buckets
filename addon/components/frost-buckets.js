@@ -49,8 +49,11 @@ export default Component.extend(PropTypesMixin, {
     // options
     titleAttr: PropTypes.string,
     subtitleAttr: PropTypes.string,
-    valueAttr: PropTypes.string
+    valueAttr: PropTypes.string,
+    onChange: PropTypes.func,
     // state
+    items: PropTypes.array.isRequired,
+    selectedItems: PropTypes.array
   },
 
   init () {
