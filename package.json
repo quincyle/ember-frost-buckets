@@ -16,7 +16,7 @@
     "lint-sass": "sass-lint -v -q",
     "test": "npm run lint && npm run coverage"
   },
-  "repository": "",
+  "repository": "git@github.com:ciena-frost/ember-frost-buckets.git",
   "engines": {
     "node": ">= 5.0.0"
   },
