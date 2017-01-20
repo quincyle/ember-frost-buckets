@@ -20,6 +20,13 @@ const actionDispatchers = _.chain(actions)
   .fromPairs()
   .value()
 
+/**
+ * Removes selected items from the list of all items
+ *
+ * @param {any[]} items List of all available items
+ * @param {any[]} selectedItems List of selected items
+ * @returns {any[]} The list of items that are not selected
+ */
 function removeSelectedItems (items, selectedItems) {
   return _.reject(items, (item) => {
     return _.some(selectedItems, (selectedItem) => {
@@ -28,6 +35,14 @@ function removeSelectedItems (items, selectedItems) {
   })
 }
 
+/**
+ * Calculates a value for the widget based on the selected list of items and a value key, if one is available
+ *
+ * @param {State} state Current redux state of the component
+ * @param {any[]} state.selectedItems List of items that are currently selected
+ * @param {string} state.valueAttr Key to use to get values
+ * @returns {any[]} A list of values based on the provided key
+ */
 function valueFromState ({selectedItems, valueAttr}) {
   if (valueAttr === undefined) {
     return selectedItems
