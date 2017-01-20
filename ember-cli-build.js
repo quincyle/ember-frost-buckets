@@ -19,11 +19,6 @@ module.exports = function (defaults) {
       modes: ['javascript', 'handlebars', 'markdown'],
       // frost-demo-editor defaults to 'mdn-like'
       themes: ['mdn-like']
-    },
-    'ember-prism': {
-      // we use coy for frost demos
-      theme: 'coy',
-      components: ['javascript']
     }
   })
 
