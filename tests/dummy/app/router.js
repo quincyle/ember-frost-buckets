@@ -10,4 +10,4 @@ AppRouter.map(function () {
   this.route('demo')
 })
 
-export default Router
+export default AppRouter
