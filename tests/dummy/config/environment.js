@@ -5,7 +5,7 @@ module.exports = function (environment) {
     modulePrefix: 'dummy',
     environment: environment,
     baseURL: '/',
-    locationType: 'auto',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -40,7 +40,12 @@ module.exports = function (environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.rootURL = '/ember-frost-buckets'
+    ENV.isDemo = true
+    ENV.mirageNamespace = 'https://ciena-frost.github.io'
+    ENV['ember-cli-mirage'] = {
+      enabled: true
+    }
   }
 
   return ENV
