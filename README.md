@@ -14,7 +14,8 @@ Ember addon for a "bucket" widget for use with Ciena-Frost.
 | onChange | Handler that executes when the component changes the list of selected items | Function | No |
 
 ### Default Behavior
-If titleAttr and subtitleAttr are not specified, the display tiles will show the value of the item and no subheading. When valueAttr is not specified, the value used will be the item itself. This is good for use with primitives.
+If titleAttr and subtitleAttr are not specified, the display tiles will show the value of the item and no subheading.
+When valueAttr is not specified, the value used will be the item itself. This is good for use with primitives.
 
 ```handlebars
 {{frost-buckets
@@ -23,7 +24,9 @@ If titleAttr and subtitleAttr are not specified, the display tiles will show the
 ```
 
 ### Specifying display properties
-For objects it is often more effective to specify a property to display instead of trying to display the stringified version of the object. To do this specify `titleAttr` (and `subtitleAttr` if you want a subheading). For example, if you have items:
+For objects it is often more effective to specify a property to display instead of trying to display the stringified
+version of the object. To do this specify `titleAttr` (and `subtitleAttr` if you want a subheading). For example, if
+you have items:
 
 ```javascript
 let item = {
@@ -42,10 +45,13 @@ using the following:
 would make the tiles display the `label` as the main text and the `description` as the subheading.
 
 ### Setting the selected items
-If you want to set the selected items to the `frost-buckets` component specify the `selectedItems` attribute. The component assumes that items are unique and selected items will not appear in the list of non-selected items.
+If you want to set the selected items to the `frost-buckets` component specify the `selectedItems` attribute. The
+component assumes that items are unique and selected items will not appear in the list of non-selected items.
 
 ### Setting the hovered item
-To set the hover on a specific item you can set it using `hoveredItem`. This attribute is a hash with two properties, `index` (a number), and `isSelected` (a boolean). `isSelected` determiines which bucket the item is in (i.e. with selected items or non selected items), and `index` specifies the zero based index the number is at.
+To set the hover on a specific item you can set it using `hoveredItem`. This attribute is a hash with two properties,
+`index` (a number), and `isSelected` (a boolean). `isSelected` determiines which bucket the item is in (i.e. with
+selected items or non selected items), and `index` specifies the zero based index the number is at.
 Example:
 
 ```javascript
@@ -67,7 +73,9 @@ using the following:
 would set the hover state on the second item in the selected items bucket.
 
 ### Reacting to changes
-If an `onChange` function is specified, it will be called when the list is changed with the new list of selected values. This list is comprised of either the items themselves or the value specified by the `valueAttr` key. For example,
+If an `onChange` function is specified, it will be called when the list is changed with the new list of selected
+values. This list is comprised of either the items themselves or the value specified by the `valueAttr` key.
+For example,
 
 ```javascript
 let item = {

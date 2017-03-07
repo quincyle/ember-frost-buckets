@@ -3,7 +3,9 @@
 
 .frost-buckets {
   height: 700px;
-  .frost-non-selected-bucket, .frost-selected-bucket {
+
+  .frost-non-selected-bucket,
+  .frost-selected-bucket {
     margin: 5px;
   }
 }
@@ -11,7 +13,7 @@
 .code-section {
   display: flex;
   flex-direction: column;
-  height: 700px;
   width: 400px;
+  height: 700px;
   float: right;
 }
