@@ -55,7 +55,7 @@ deploy:
     secure: cQ14EvEfNc5B0BIdNJlB4cK97y4iTGjvjPem9Wd9+sWXGRZ1WORSPIwg+CckN0xLeCrUWCDR22FM7lmXf7Z7+J1yaNuuKassUqwJBbLM4U3EBI6ZlfgDaSW5dIINGwVlaYufULwIzqjPG5SsGk9p/b98T72hSnrcaTjxqXl+LyW06VQc3x3TnMzKethW3QCCZyFLcTAvfBtbcJqjKqbNiMPsoVkZbCFT9zO/z9p96flwWZiUzXC9cfYlraYoAc1zWRavH+aFS8M/8yqKogk9jtk+rjSpMjitwsqhqJfPTabKbd7YzBNVy+Yk4q/mdYmNRsqBn9+a+fxaA/5IkJxxQR5551T0yn+xzTBwVP7jsFMm/sKEDYmLdxJIPROUdWhqkppoJPavOBTBIMWH1Qg+C7ZPLqO/vQDALC7NanWt0cm4gcg3PirOA3cQnL/6vOJ+Lr+/3li82i7l30SxDHzB76oQk8NzHtMGEPCnnA+4mXcrT7mohbM2TMqmmoJeud4gkhaqqhZUzGTHlV7bTtrcxMJUewN/NHQZUYSyAIw9T/tqYmyDqgzY0G2vFhva6s7J/oXiNZ4Pbol9ZWk9uWNDlM+jFWiwDqs+MvXOaL879jRWN8g2D+gP4pDMMPSRJz15JkRQ+E6fOLX3OTURCSEhL3Y7usttPuX+3N7IosDNCkU=
   on:
     all_branches: true
-    condition: "$EMBER_TRY_SCENARIO = 'default'"
+    condition: "$EMBER_TRY_SCENARIO = 'ember-default'"
     node: '6.9.1'
     tags: true
 
