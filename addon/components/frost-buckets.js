@@ -6,7 +6,7 @@ import layout from '../templates/components/frost-buckets'
 import PropTypesMixin, {PropTypes} from 'ember-prop-types'
 const {createStore} = redux
 import _ from 'lodash'
-import redux from 'redux'
+import redux from 'npm:redux'
 
 const actionDispatchers = _.chain(actions)
   .toPairs()
