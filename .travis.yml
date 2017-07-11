@@ -12,22 +12,21 @@ addons:
     packages:
     - google-chrome-stable
     - g++-4.8
-  firefox: 'latest-esr'
 cache:
   directories:
     - node_modules
 env:
   matrix:
-    - EMBER_TRY_SCENARIO=ember-2-3
-    - EMBER_TRY_SCENARIO=default
-    - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-lts-2.8
+  - EMBER_TRY_SCENARIO=ember-default
   global:
   - CXX=g++-4.8
   - secure: RW4aU5bEaA8Y+3u9CChJtstWnE2v+SbEqWMP5AycFHzUH7rkx3uoHPJt4EloHidyrSEHFj+1qVeTTHsUsNmBiY7MmSN1Km7CNriwwrnPs8HDckHh5SvFJKCqY6O7NBcjMSm9S26cJOoYvyz992EGqNBUaf6GkagV50YAy0imODqU2ONpGCDUujXDeqe+25HUpR5u+7I12K02plXa0F6+E5AwCYe65dWhsd3UWmrmJDaN+Ji1PLbEJePDiLOW/4OURhobxdRb/O51c4ux79PQS+F/WYNFW76/9eBLKp2iziWJkq9eMBtVGY9pN6loVnHwTHCB3rE+VYyhV4vUQ7lkit1iiMryEzNt1zS+bknUjzwSK9qUtmm/mu2XvnJ6E+e3O2FYq85pNI30FkpIBMqKxLbW5EUVx2+g0/Zi+1wm3SmlPg3bPmEF9RsGLCROIyoe00+j2aHnMrDmhPSb/nf91ImXVz6TAxwbsQRCoURfV2KXdAZKosdBkp/QE7znDsRbDgaiYwgRZaXCJpb0pIXRtb+2x6dbdHGfvn5QBErmhTJaWbdEm4NRLjxvF1uqW6HzvSV6hr0JOUdPnzS8ZyLtIa/Pax1INQHJH1CdkNMsZMqnLXyJt14fALHkvhAt5cPtp7d8LjGIuZXaXeH3eElD4RQJgZCy5/fTKTpnD0C6Ur8=
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-release
+  - node_js: 'stable'
+
 before_install:
 - npm config set spin false
 - npm install -g coveralls pr-bumper@^1.0.0
@@ -56,7 +55,7 @@ deploy:
     secure: cQ14EvEfNc5B0BIdNJlB4cK97y4iTGjvjPem9Wd9+sWXGRZ1WORSPIwg+CckN0xLeCrUWCDR22FM7lmXf7Z7+J1yaNuuKassUqwJBbLM4U3EBI6ZlfgDaSW5dIINGwVlaYufULwIzqjPG5SsGk9p/b98T72hSnrcaTjxqXl+LyW06VQc3x3TnMzKethW3QCCZyFLcTAvfBtbcJqjKqbNiMPsoVkZbCFT9zO/z9p96flwWZiUzXC9cfYlraYoAc1zWRavH+aFS8M/8yqKogk9jtk+rjSpMjitwsqhqJfPTabKbd7YzBNVy+Yk4q/mdYmNRsqBn9+a+fxaA/5IkJxxQR5551T0yn+xzTBwVP7jsFMm/sKEDYmLdxJIPROUdWhqkppoJPavOBTBIMWH1Qg+C7ZPLqO/vQDALC7NanWt0cm4gcg3PirOA3cQnL/6vOJ+Lr+/3li82i7l30SxDHzB76oQk8NzHtMGEPCnnA+4mXcrT7mohbM2TMqmmoJeud4gkhaqqhZUzGTHlV7bTtrcxMJUewN/NHQZUYSyAIw9T/tqYmyDqgzY0G2vFhva6s7J/oXiNZ4Pbol9ZWk9uWNDlM+jFWiwDqs+MvXOaL879jRWN8g2D+gP4pDMMPSRJz15JkRQ+E6fOLX3OTURCSEhL3Y7usttPuX+3N7IosDNCkU=
   on:
     all_branches: true
-    condition: "$EMBER_TRY_SCENARIO = 'default'"
+    condition: "$EMBER_TRY_SCENARIO = 'ember-default'"
     node: '6.9.1'
     tags: true
 
