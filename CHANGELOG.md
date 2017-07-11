@@ -1,3 +1,6 @@
+# 0.0.7 (2017-07-11)
+* **Upgrade** to `ember-cli@2.12.3`
+
 # 0.0.6 (2017-05-10)
 * **Updated** secure token for `.travis.yml`
 
