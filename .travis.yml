@@ -12,6 +12,8 @@ addons:
     packages:
     - google-chrome-stable
     - g++-4.8
+  firefox: 'latest'
+
 cache:
   directories:
     - node_modules
