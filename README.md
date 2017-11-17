@@ -1,3 +1,5 @@
+# This addon is [DEPRECATED]
+
 # ember-frost-buckets
 Ember addon for a "bucket" widget for use with Ciena-Frost.
 
