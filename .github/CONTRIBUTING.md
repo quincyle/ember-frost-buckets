@@ -1,4 +1,4 @@
-# Ciena Blueplanet Contribution Guidelines
+# Frost Contribution Guidelines
 Like all great open-source software, Frost welcomes contributions from the community.
 In order to maintain consistency, we ask contributors to follow the following guidelines.
 

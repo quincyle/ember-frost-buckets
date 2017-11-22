@@ -11,7 +11,6 @@ module.exports = {
   launch_in_dev: [
     'Chrome'
   ],
-  parallel: '-1',
   reporter: new Reporter(),
   test_page: 'tests/index.html?hidepassed'
 }
